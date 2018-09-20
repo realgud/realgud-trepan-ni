@@ -35,13 +35,13 @@
 
 (require 'load-relative)
 
-(defgroup realgud-node-inspector  nil
-  "Realgud interface to the 'node inspect' debugger"
+(defgroup realgud-trepan-ni  nil
+  "Realgud interface to the 'trepan-ni' debugger"
   :group 'realgud
   :version "24.3")
 
-(require-relative-list '( "./node-inspect/main" ) "realgud-")
-(load-relative "./node-inspect/main.el")
+(require-relative-list '( "./trepan-ni/main" ) "realgud-")
+(load-relative "./trepan-ni/main.el")
 
 (provide-me)
 

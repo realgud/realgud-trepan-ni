@@ -21,10 +21,10 @@
 (require 'realgud-lang-js)
 (require 'ansi-color)
 
-(defvar realgud:node-inspect-pat-hash)
+(defvar realgud:trepan-ni-pat-hash)
 (declare-function make-realgud-loc-pat (realgud-loc))
 
-(defvar realgud:node-inspect-pat-hash (make-hash-table :test 'equal)
+(defvar realgud:trepan-ni-pat-hash (make-hash-table :test 'equal)
   "Hash key is the what kind of pattern we want to match:
 backtrace, prompt, etc.  The values of a hash entry is a
 realgud-loc-pat struct")
@@ -32,7 +32,7 @@ realgud-loc-pat struct")
 ;; before a command prompt.
 ;; For example:
 ;;   break in /home/indutny/Code/git/indutny/myscript.js:1
-(setf (gethash "loc" realgud:node-inspect-pat-hash)
+(setf (gethash "loc" realgud:trepan-ni-pat-hash)
       (make-realgud-loc-pat
        :regexp (format
 		"\\(?:%s\\)*\\(?:break\\|exception\\) in %s:%s"
@@ -41,51 +41,51 @@ realgud-loc-pat struct")
        :file-group 1
        :line-group 2))
 
-;; Regular expression that describes a node-inspect command prompt
+;; Regular expression that describes a trepan-ni command prompt
 ;; For example:
 ;;   debug>
-(setf (gethash "prompt" realgud:node-inspect-pat-hash)
+(setf (gethash "prompt" realgud:trepan-ni-pat-hash)
       (make-realgud-loc-pat
        :regexp (format "^\\(?:%s\\)*debug> " realgud:js-term-escape)
        ))
 
-;; Need an improved setbreak for this.
-;; ;;  Regular expression that describes a "breakpoint set" line
-;; ;;   3 const armlet = require('armlet');
-;; ;; * 4 const client = new armlet.Client(
-;; ;; ^^^^
-;; ;;
-;; (setf (gethash "brkpt-set" realgud:node-inspect-pat-hash)
-;;       (make-realgud-loc-pat
-;;        :regexp "^\*[ ]*\\([0-9]+\\) \\(.+\\)"
-;;        :line-group 1
-;;        :text-group 2))
+;; realgud-loc-pat that describes a "breakpoint set" line
+;; For example:
+;;  Breakpoint set in file /tmp/gcd.js, line 2.
+;;  Breakpoint set in file /usr/lib/nodejs/module.js [module.js], line 380.
+(setf (gethash "brkpt-set" realgud:trepanjs-pat-hash)
+      (make-realgud-loc-pat
+       :regexp (format "^Breakpoint set in file %s, line %s.\n"
+		       realgud:trepanjs-file-regexp
+		       realgud:regexp-captured-num)
+       :file-group 2
+       :line-group 3))
 
 ;; Regular expression that describes a V8 backtrace line.
 ;; For example:
 ;;    at repl:1:7
 ;;    at Interface.controlEval (/src/external-vcs/github/trepanjs/lib/interface.js:352:18)
 ;;    at REPLServer.b [as eval] (domain.js:183:18)
-(setf (gethash "lang-backtrace" realgud:node-inspect-pat-hash)
+(setf (gethash "lang-backtrace" realgud:trepan-ni-pat-hash)
   realgud:js-backtrace-loc-pat)
 
 ;; Regular expression that describes a debugger "delete" (breakpoint)
 ;; response.
 ;; For example:
 ;;   Removed 1 breakpoint(s).
-(setf (gethash "brkpt-del" realgud:node-inspect-pat-hash)
+(setf (gethash "brkpt-del" realgud:trepan-ni-pat-hash)
       (make-realgud-loc-pat
        :regexp (format "^Removed %s breakpoint(s).\n"
 		       realgud:regexp-captured-num)
        :num 1))
 
 
-(defconst realgud:node-inspect-frame-start-regexp  "\\(?:^\\|\n\\)\\(?:#\\)")
-(defconst realgud:node-inspect-frame-num-regexp    realgud:regexp-captured-num)
-(defconst realgud:node-inspect-frame-module-regexp "[^ \t\n]+")
-(defconst realgud:node-inspect-frame-file-regexp   "[^ \t\n]+")
+(defconst realgud:trepan-ni-frame-start-regexp  "\\(?:^\\|\n\\)\\(?:#\\)")
+(defconst realgud:trepan-ni-frame-num-regexp    realgud:regexp-captured-num)
+(defconst realgud:trepan-ni-frame-module-regexp "[^ \t\n]+")
+(defconst realgud:trepan-ni-frame-file-regexp   "[^ \t\n]+")
 
-;; Regular expression that describes a node-inspect location generally shown
+;; Regular expression that describes a trepan-ni location generally shown
 ;; Regular expression that describes a debugger "backtrace" command line.
 ;; For example:
 ;; #0 module.js:380:17
@@ -96,12 +96,12 @@ realgud-loc-pat struct")
 ;; #5 Module._load module.js:312:12
 ;; #6 Module.runMain module.js:497:10
 ; ;#7 timers.js:110:15
-(setf (gethash "debugger-backtrace" realgud:node-inspect-pat-hash)
+(setf (gethash "debugger-backtrace" realgud:trepan-ni-pat-hash)
       (make-realgud-loc-pat
-       :regexp 	(concat realgud:node-inspect-frame-start-regexp
-			realgud:node-inspect-frame-num-regexp " "
-			"\\(?:" realgud:node-inspect-frame-module-regexp " \\)?"
-			"\\(" realgud:node-inspect-frame-file-regexp "\\)"
+       :regexp 	(concat realgud:trepan-ni-frame-start-regexp
+			realgud:trepan-ni-frame-num-regexp " "
+			"\\(?:" realgud:trepan-ni-frame-module-regexp " \\)?"
+			"\\(" realgud:trepan-ni-frame-file-regexp "\\)"
 			":"
 			realgud:regexp-captured-num
 			":"
@@ -112,13 +112,13 @@ realgud-loc-pat struct")
        :line-group 3
        :char-offset-group 4))
 
-(defconst realgud:node-inspect-debugger-name "node-inspect" "Name of debugger")
+(defconst realgud:trepan-ni-debugger-name "trepan-ni" "Name of debugger")
 
 ;; ;; Regular expression that for a termination message.
-;; (setf (gethash "termination" realgud:node-inspect-pat-hash)
-;;        "^node-inspect: That's all, folks...\n")
+;; (setf (gethash "termination" realgud:trepan-ni-pat-hash)
+;;        "^trepan-ni: That's all, folks...\n")
 
-(setf (gethash "font-lock-keywords" realgud:node-inspect-pat-hash)
+(setf (gethash "font-lock-keywords" realgud:trepan-ni-pat-hash)
       '(
 	;; The frame number and first type name, if present.
 	;; E.g. ->0 in file `/etc/init.d/apparmor' at line 35
@@ -140,46 +140,46 @@ realgud-loc-pat struct")
 	 (1 realgud-line-number-face))
 	))
 
-(setf (gethash "node-inspect" realgud-pat-hash)
-      realgud:node-inspect-pat-hash)
+(setf (gethash "trepan-ni" realgud-pat-hash)
+      realgud:trepan-ni-pat-hash)
 
 ;;  Prefix used in variable names (e.g. short-key-mode-map) for
 ;; this debugger
 
-(setf (gethash "node-inspect" realgud:variable-basename-hash)
-      "realgud:node-inspect")
+(setf (gethash "trepan-ni" realgud:variable-basename-hash)
+      "realgud:trepan-ni")
 
-(defvar realgud:node-inspect-command-hash (make-hash-table :test 'equal)
+(defvar realgud:trepan-ni-command-hash (make-hash-table :test 'equal)
   "Hash key is command name like 'finish' and the value is
-  the node-inspect command to use, like 'out'")
+  the trepan-ni command to use, like 'out'")
 
-(setf (gethash realgud:node-inspect-debugger-name
+(setf (gethash realgud:trepan-ni-debugger-name
 	       realgud-command-hash)
-      realgud:node-inspect-command-hash)
+      realgud:trepan-ni-command-hash)
 
-(setf (gethash "backtrace"  realgud:node-inspect-command-hash) "backtrace")
-(setf (gethash "break"      realgud:node-inspect-command-hash)
-      "setBreakpoint('%X',%l)")
-(setf (gethash "continue"   realgud:node-inspect-command-hash) "cont")
-(setf (gethash "kill"       realgud:node-inspect-command-hash) "kill")
-(setf (gethash "quit"       realgud:node-inspect-command-hash) "")
-(setf (gethash "finish"     realgud:node-inspect-command-hash) "out")
-(setf (gethash "shell"      realgud:node-inspect-command-hash) "repl")
-(setf (gethash "eval"       realgud:node-inspect-command-hash) "exec('%s')")
+(setf (gethash "backtrace"  realgud:trepan-ni-command-hash) "backtrace")
+(setf (gethash "break"      realgud:trepan-ni-command-hash)
+      "break('%X',%l)")
+(setf (gethash "continue"   realgud:trepan-ni-command-hash) "cont")
+(setf (gethash "kill"       realgud:trepan-ni-command-hash) "kill")
+(setf (gethash "quit"       realgud:trepan-ni-command-hash) "")
+(setf (gethash "finish"     realgud:trepan-ni-command-hash) "out")
+(setf (gethash "shell"      realgud:trepan-ni-command-hash) "repl")
+(setf (gethash "eval"       realgud:trepan-ni-command-hash) "eval('%s')")
 
 ;; We need aliases for step and next because the default would
-;; do step 1 and node-inspect doesn't handle this. And if it did,
+;; do step 1 and trepan-ni doesn't handle this. And if it did,
 ;; it would probably look like step(1).
-(setf (gethash "step"       realgud:node-inspect-command-hash) "step")
-(setf (gethash "next"       realgud:node-inspect-command-hash) "next")
+(setf (gethash "step"       realgud:trepan-ni-command-hash) "step")
+(setf (gethash "next"       realgud:trepan-ni-command-hash) "next")
 
 ;; Unsupported features:
-(setf (gethash "jump"       realgud:node-inspect-command-hash) "*not-implemented*")
-(setf (gethash "up"         realgud:node-inspect-command-hash) "*not-implemented*")
-(setf (gethash "down"       realgud:node-inspect-command-hash) "*not-implemented*")
-(setf (gethash "frame"      realgud:node-inspect-command-hash) "*not-implemented*")
+(setf (gethash "jump"       realgud:trepan-ni-command-hash) "*not-implemented*")
+(setf (gethash "up"         realgud:trepan-ni-command-hash) "*not-implemented*")
+(setf (gethash "down"       realgud:trepan-ni-command-hash) "*not-implemented*")
+(setf (gethash "frame"      realgud:trepan-ni-command-hash) "*not-implemented*")
 
-(setf (gethash "node-inspect" realgud-command-hash) realgud:node-inspect-command-hash)
-(setf (gethash "node-inspect" realgud-pat-hash) realgud:node-inspect-pat-hash)
+(setf (gethash "trepan-ni" realgud-command-hash) realgud:trepan-ni-command-hash)
+(setf (gethash "trepan-ni" realgud-pat-hash) realgud:trepan-ni-pat-hash)
 
-(provide-me "realgud:node-inspect-")
+(provide-me "realgud:trepan-ni-")
