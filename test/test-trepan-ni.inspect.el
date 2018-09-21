@@ -24,7 +24,7 @@
     (assert-equal  expanded-name script-filename "file name check")
     ))
 
-(note "nodejs-parse-cmd-args")
+(note "trepan-ni-parse-cmd-args")
 (assert-equal (list '("node" "inspect") nil '("foo"))
 	      (nodejs-parse-cmd-args '("node" "inspect" "foo")))
 

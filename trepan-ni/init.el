@@ -46,20 +46,23 @@ realgud-loc-pat struct")
 ;;   debug>
 (setf (gethash "prompt" realgud:trepan-ni-pat-hash)
       (make-realgud-loc-pat
-       :regexp (format "^\\(?:%s\\)*debug> " realgud:js-term-escape)
+       :regexp (format "^\\(?:%s\\)*(trepan-ni) " realgud:js-term-escape)
        ))
 
 ;; realgud-loc-pat that describes a "breakpoint set" line
 ;; For example:
-;;  Breakpoint set in file /tmp/gcd.js, line 2.
+;;  Breakpoint 1 set in file /tmp/gcd.js, line 2.
 ;;  Breakpoint set in file /usr/lib/nodejs/module.js [module.js], line 380.
-(setf (gethash "brkpt-set" realgud:trepanjs-pat-hash)
+(setf (gethash "brkpt-set" realgud:trepan-ni-pat-hash)
       (make-realgud-loc-pat
-       :regexp (format "^Breakpoint set in file %s, line %s.\n"
+       :regexp (format "^Breakpoint %s set in file %s, line %s.\n"
+		       realgud:regexp-captured-num
 		       realgud:trepanjs-file-regexp
 		       realgud:regexp-captured-num)
+       :num 1
        :file-group 2
        :line-group 3))
+
 
 ;; Regular expression that describes a V8 backtrace line.
 ;; For example:
@@ -114,9 +117,9 @@ realgud-loc-pat struct")
 
 (defconst realgud:trepan-ni-debugger-name "trepan-ni" "Name of debugger")
 
-;; ;; Regular expression that for a termination message.
-;; (setf (gethash "termination" realgud:trepan-ni-pat-hash)
-;;        "^trepan-ni: That's all, folks...\n")
+;; Regular expression that for a termination message.
+(setf (gethash "termination" realgud:trepan-ni-pat-hash)
+       "^trepan-ni: That's all, folks!\n")
 
 (setf (gethash "font-lock-keywords" realgud:trepan-ni-pat-hash)
       '(
@@ -159,7 +162,7 @@ realgud-loc-pat struct")
 
 (setf (gethash "backtrace"  realgud:trepan-ni-command-hash) "backtrace")
 (setf (gethash "break"      realgud:trepan-ni-command-hash)
-      "break('%X',%l)")
+      "setBreakpoint('%X',%l)")
 (setf (gethash "continue"   realgud:trepan-ni-command-hash) "cont")
 (setf (gethash "kill"       realgud:trepan-ni-command-hash) "kill")
 (setf (gethash "quit"       realgud:trepan-ni-command-hash) "")
