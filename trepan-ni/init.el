@@ -83,7 +83,7 @@ realgud-loc-pat struct")
        :num 1))
 
 
-(defconst realgud:trepan-ni-frame-start-regexp  "\\(?:^\\|\n\\)\\(?:#\\)")
+(defconst realgud:trepan-ni-frame-start-regexp  "\\(?:^\\|\n\\)\\(?:##\|->\)")
 (defconst realgud:trepan-ni-frame-num-regexp    realgud:regexp-captured-num)
 (defconst realgud:trepan-ni-frame-module-regexp "[^ \t\n]+")
 (defconst realgud:trepan-ni-frame-file-regexp   "[^ \t\n]+")
@@ -124,22 +124,22 @@ realgud-loc-pat struct")
 (setf (gethash "font-lock-keywords" realgud:trepan-ni-pat-hash)
       '(
 	;; The frame number and first type name, if present.
-	;; E.g. ->0 in file `/etc/init.d/apparmor' at line 35
+	;; E.g. ->0 (anonymous) tmp/gcd.js:2:11
 	;;      --^-
 	("^\\(->\\|##\\)\\([0-9]+\\) "
 	 (2 realgud-backtrace-number-face))
 
 	;; File name.
-	;; E.g. ->0 in file `/etc/init.d/apparmor' at line 35
-	;;          ---------^^^^^^^^^^^^^^^^^^^^-
-	("[ \t]+\\(in\\|from\\) file `\\(.+\\)'"
+	;; E.g. ->0 (anonymous) tmp/gcd.js:2:11
+	;;          ------------^^^^^^^^^^
+	("\\(?:.*\\)[ \t]+\\([^:]+\\):"
 	 (2 realgud-file-name-face))
 
-	;; File name.
-	;; E.g. ->0 in file `/etc/init.d/apparmor' at line 35
-	;;                                         --------^^
+	;; Line Number
+	;; E.g. ->0 (anonymous) tmp/gcd.js:2:11
+	;;                                 ^
 	;; Line number.
-	("[ \t]+at line \\([0-9]+\\)$"
+	("\\([0-9]+\\)"
 	 (1 realgud-line-number-face))
 	))
 

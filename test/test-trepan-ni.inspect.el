@@ -6,9 +6,9 @@
 
 (eval-when-compile (defvar test:run-process-save))
 
-(declare-function nodejs-parse-cmd-args 'realgud:nodejs)
-(declare-function nodejs                'realgud:nodejs)
-(declare-function __FILE__              'load-relative)
+(declare-function trepan-ni-parse-cmd-args 'realgud:trepan-ni-core)
+(declare-function trepan-ni                'realgud:trepan-ni)
+(declare-function __FILE__                 'load-relative)
 
 (test-simple-start)
 
@@ -25,8 +25,8 @@
     ))
 
 (note "trepan-ni-parse-cmd-args")
-(assert-equal (list '("node" "inspect") nil '("foo"))
-	      (nodejs-parse-cmd-args '("node" "inspect" "foo")))
+(assert-equal '(("trepan-ni")  nil  ("foo"))
+	      (trepan-ni-parse-cmd-args '("trepan-ni" "foo")))
 
 ;; FIXME: need to mock remove-ansi-schmutz in realgud:nodejs
 ;; (realgud:nodejs "node inspect ./gcd.js 3 5")
