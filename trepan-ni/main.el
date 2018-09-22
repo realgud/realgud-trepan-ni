@@ -13,7 +13,7 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;  `realgud:trepan-ni' Main interface to "node inspect" debugger via Emacs
+;;  `realgud:trepan-ni' Main interface to "trepan-ni" debugger via Emacs
 
 (require 'cl-lib)
 (require 'load-relative)
@@ -32,7 +32,7 @@
 ;;
 
 (defcustom realgud:trepan-ni-command-name
-  "node inspect"
+  "trepan-ni"
   "File name for executing the Javascript debugger and command options.
 This should be an executable on your path, or an absolute file name."
   :type 'string

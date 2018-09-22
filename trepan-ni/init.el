@@ -35,7 +35,7 @@ realgud-loc-pat struct")
 (setf (gethash "loc" realgud:trepan-ni-pat-hash)
       (make-realgud-loc-pat
        :regexp (format
-		"\\(?:%s\\)*\\(?:break\\|exception\\) in %s:%s"
+		"\\(?:%s\\)*\\(?:break\\|exception\\|frame change\\) in %s:%s"
 		realgud:js-term-escape "\\([^:]+\\)"
 		realgud:regexp-captured-num)
        :file-group 1
@@ -176,11 +176,13 @@ realgud-loc-pat struct")
 (setf (gethash "step"       realgud:trepan-ni-command-hash) "step")
 (setf (gethash "next"       realgud:trepan-ni-command-hash) "next")
 
+(setf (gethash "up"         realgud:trepan-ni-command-hash) "up(%p)")
+(setf (gethash "down"       realgud:trepan-ni-command-hash) "down(%p)")
+(setf (gethash "frame"      realgud:trepan-ni-command-hash) "frame(%p)")
+
 ;; Unsupported features:
 (setf (gethash "jump"       realgud:trepan-ni-command-hash) "*not-implemented*")
-(setf (gethash "up"         realgud:trepan-ni-command-hash) "*not-implemented*")
-(setf (gethash "down"       realgud:trepan-ni-command-hash) "*not-implemented*")
-(setf (gethash "frame"      realgud:trepan-ni-command-hash) "*not-implemented*")
+
 
 (setf (gethash "trepan-ni" realgud-command-hash) realgud:trepan-ni-command-hash)
 (setf (gethash "trepan-ni" realgud-pat-hash) realgud:trepan-ni-pat-hash)
