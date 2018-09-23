@@ -41,6 +41,8 @@ realgud-loc-pat struct")
        :file-group 1
        :line-group 2))
 
+(setf (gethash "file-line" realgud:trepan-ni-pat-hash) realgud:js-file-line-loc-pat)
+
 ;; Regular expression that describes a trepan-ni command prompt
 ;; For example:
 ;;   debug>

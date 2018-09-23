@@ -59,7 +59,7 @@ We return the a list containing
 
 For example for the following input:
   (map 'list 'symbol-name
-   '(node --interactive --debugger-port 5858 /tmp trepan-ni ./gcd.js a b))
+   '(node --interactive --debugger-port 5858 trepan-ni ./gcd.js a b))
 
 we might return:
    ((\"node\" \"--interactive\" \"--debugger-port\" \"5858\") nil (\"/tmp/gcd.js\" \"a\" \"b\"))

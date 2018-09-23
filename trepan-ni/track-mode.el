@@ -36,6 +36,9 @@
     (message "trepan-ni track-mode-hook disable called"))
 )
 
+(define-key realgud:ni-track-mode-map
+  (kbd "C-c !f") 'realgud:js-goto-file-line)
+
 ;; FIXME: this shouldn't be needed
 (defvar realgud:trepan-ni-track-mode-map (make-keymap))
 (define-key realgud:trepan-ni-track-mode-map
