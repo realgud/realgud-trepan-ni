@@ -59,7 +59,7 @@ realgud-loc-pat struct")
       (make-realgud-loc-pat
        :regexp (format "^Breakpoint %s set in file %s, line %s.\n"
 		       realgud:regexp-captured-num
-		       realgud:trepanjs-file-regexp
+		       realgud:js-file-regexp
 		       realgud:regexp-captured-num)
        :num 1
        :file-group 2

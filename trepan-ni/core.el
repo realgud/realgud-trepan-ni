@@ -96,7 +96,7 @@ Note that path elements have been expanded via `expand-file-name'.
 	;; trepan-ni --trepan-ni-options script --script-options
 	(setq debugger-name (file-name-sans-extension
 			     (file-name-nondirectory (car args))))
-	(unless (string-match "^node\\(?:js\\|mon\\)?$" debugger-name)
+	(unless (string-match "^nodemon\\|node\\|trepan-ni?$" debugger-name)
 	  (message
 	   "Expecting debugger name `%s' to be `node', `nodemon', or `trepan-ni'"
 	   debugger-name))
