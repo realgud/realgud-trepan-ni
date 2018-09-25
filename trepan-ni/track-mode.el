@@ -14,7 +14,7 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;; "node inspect" tracking a comint or eshell buffer.
+;; "trepan-ni" tracking a comint buffer.
 
 (declare-function realgud:track-set-debugger 'realgud-track-mode)
 (declare-function realgud-track-mode-setup   'realgud-track-mode)
@@ -26,24 +26,22 @@
 
 (realgud-track-mode-vars "realgud:trepan-ni")
 
+;; FIXME: this shouldn't be needed
+(defvar realgud:trepan-ni-track-mode-map (make-keymap))
+(define-key realgud:trepan-ni-track-mode-map
+  (kbd "C-c !f") 'realgud:js-goto-file-line)
+(define-key realgud:trepan-ni-track-mode-map
+  (kbd "C-c !s") 'realgud:js-goto-syntax-error-line)
+
 (defun realgud:trepan-ni-track-mode-hook()
   (if realgud:trepan-ni-track-mode
       (progn
-	(use-local-map realgud:trepan-ni-track-mode-map)
+	(use-local-map trepanjs-track-mode-map)
 	(realgud:remove-ansi-schmutz)
 	(message "using trepan-ni mode map")
 	)
     (message "trepan-ni track-mode-hook disable called"))
 )
-
-(define-key realgud:trepan-ni-track-mode-map
-  (kbd "C-c !f") 'realgud:js-goto-file-line)
-
-;; FIXME: this shouldn't be needed
-(defvar realgud:trepan-ni-track-mode-map (make-keymap))
-(define-key realgud:trepan-ni-track-mode-map
-  (kbd "C-c !f") 'realgud:js-goto-file-line)
-
 (define-minor-mode realgud:trepan-ni-track-mode
   "Minor mode for tracking trepan-ni source locations inside a trepan-ni shell via realgud.
 
@@ -61,9 +59,8 @@ the argument is positive, and disables it otherwise.
 
   (if realgud:trepan-ni-track-mode
       (progn
-	(realgud:track-set-debugger "trepan-ni")
-        (realgud:trepan-ni-track-mode-hook)
-        (realgud:track-mode-enable))
+	(realgud-track-mode-setup 't)
+        (realgud:trepan-ni-track-mode-hook))
     (progn
       (setq realgud-track-mode nil)
       ))
