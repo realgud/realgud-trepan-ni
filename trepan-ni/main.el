@@ -71,13 +71,13 @@ fringe and marginal icons.
 			       'trepan-ni-query-cmdline 'trepan-ni-parse-cmd-args
 			       'realgud:trepan-ni-minibuffer-history
 			       opt-cmd-line no-reset)))
-    ;; (if cmd-buf
-    ;; 	(with-current-buffer cmd-buf
-    ;; 	  ;; FIXME should allow customization whether to do or not
-    ;; 	  ;; and also only do if hook is not already there.
-    ;; 	  (realgud:remove-ansi-schmutz)
-    ;; 	  )
-    ;;   )
+    (if cmd-buf
+    	(with-current-buffer cmd-buf
+    	  ;; FIXME should allow customization whether to do or not
+    	  ;; and also only do if hook is not already there.
+    	  (realgud:remove-ansi-schmutz)
+    	  )
+      )
     ))
 
 (defalias 'trepan-ni 'realgud:trepan-ni)

@@ -133,15 +133,6 @@ Note that path elements have been expanded via `expand-file-name'.
 			      realgud:trepan-ni-minibuffer-history
 			      "js" "\\.js$"))
 
-(defun realgud:trepan-ni-remove-ansi-shmutz()
-  "Remove ASCII escape sequences that node.js 'decorates' in
-prompts and interactive output with"
-  (add-to-list
-   'comint-preoutput-filter-functions
-   (lambda (output)
-     (replace-regexp-in-string "\033\\[[0-9]+[GKJ]" "" output)))
-  )
-
 (defun realgud:trepan-ni-reset ()
   "Trepan-Ni cleanup - remove debugger's internal buffers (frame,
 breakpoints, etc.)."
