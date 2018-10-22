@@ -77,10 +77,10 @@ realgud-loc-pat struct")
 ;; Regular expression that describes a debugger "delete" (breakpoint)
 ;; response.
 ;; For example:
-;;   Removed 1 breakpoint(s).
+;;   Breakpoint 1 deleted breakpoint(s).
 (setf (gethash "brkpt-del" realgud:trepan-ni-pat-hash)
       (make-realgud-loc-pat
-       :regexp (format "^Removed %s breakpoint(s).\n"
+       :regexp (format "^Breakpoint %s deleted\n"
 		       realgud:regexp-captured-num)
        :num 1))
 
@@ -166,6 +166,9 @@ realgud-loc-pat struct")
 (setf (gethash "break"      realgud:trepan-ni-command-hash)
       "setBreakpoint('%X',%l)")
 (setf (gethash "continue"   realgud:trepan-ni-command-hash) "cont")
+(setf (gethash "delete"     realgud:trepan-ni-command-hash)
+      "deleteBreakpoint(%p)")
+
 (setf (gethash "kill"       realgud:trepan-ni-command-hash) "kill")
 (setf (gethash "quit"       realgud:trepan-ni-command-hash) "")
 (setf (gethash "finish"     realgud:trepan-ni-command-hash) "out")
