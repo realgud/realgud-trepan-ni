@@ -35,7 +35,7 @@ realgud-loc-pat struct")
 (setf (gethash "loc" realgud:trepan-ni-pat-hash)
       (make-realgud-loc-pat
        :regexp (format
-		"\\(?:%s\\)*\\(?:break\\|exception\\|frame change\\) in %s:%s"
+		"\\(?:%s\\)*\\(?:break\\|exception\\|frame change\\) in \\(?:file://\\)?%s:%s"
 		realgud:js-term-escape "\\([^:]+\\)"
 		realgud:regexp-captured-num)
        :file-group 1

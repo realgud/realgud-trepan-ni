@@ -42,6 +42,7 @@
 
 (require-relative-list '( "./trepan-ni/main" ) "realgud-")
 (load-relative "./trepan-ni/main.el")
+(load-relative "./trepan-ni/track-mode.el")
 
 (provide-me)
 
