@@ -57,7 +57,7 @@ realgud-loc-pat struct")
 ;;  Breakpoint set in file /usr/lib/nodejs/module.js [module.js], line 380.
 (setf (gethash "brkpt-set" realgud:trepan-ni-pat-hash)
       (make-realgud-loc-pat
-       :regexp (format "^Breakpoint %s set in file %s, line %s.\n"
+       :regexp (format "^Breakpoint %s set in file \\(?:file://\\)?%s, line %s.\n"
 		       realgud:regexp-captured-num
 		       realgud:js-file-regexp
 		       realgud:regexp-captured-num)
