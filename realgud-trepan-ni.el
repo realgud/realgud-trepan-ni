@@ -3,11 +3,11 @@
 ;; Author: Rocky Bernstein
 ;; Version: 1.0
 ;; Package-Type: multi
-;; Package-Requires: ((realgud "1.4.3") (cl-lib "0.5") (emacs "24"))
+;; Package-Requires: ((realgud "1.4.5") (cl-lib "0.5") (emacs "24"))
 ;; URL: http://github.com/realgud/realgud-node-inspect
 ;; Compatibility: GNU Emacs 24.x
 
-;; Copyright (C) 2015, 2016, 2018 Rocky Bernstein <rocky@gnu.org>
+;; Copyright (C) 2015, 2016, 2018, 2019 Rocky Bernstein <rocky@gnu.org>
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
