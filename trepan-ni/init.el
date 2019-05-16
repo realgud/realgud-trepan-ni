@@ -1,4 +1,4 @@
-;; Copyright (C) 2015-2016, 2018 Rocky Bernstein <rocky@gnu.org>
+;; Copyright (C) 2015-2016, 2019 Rocky Bernstein <rocky@gnu.org>
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; "node inspect" debugger
+;;; "trepan-ni" debugger
 
 (eval-when-compile (require 'cl-lib))   ;For setf.
 
@@ -117,7 +117,7 @@ realgud-loc-pat struct")
        :line-group 3
        :char-offset-group 4))
 
-(defconst realgud:trepan-ni-debugger-name "trepan-ni" "Name of debugger")
+(defconst realgud:trepan-ni-debugger-name "trepan-ni" "Name of debugger.")
 
 ;; Regular expression that for a termination message.
 (setf (gethash "termination" realgud:trepan-ni-pat-hash)
@@ -155,8 +155,8 @@ realgud-loc-pat struct")
       "realgud:trepan-ni")
 
 (defvar realgud:trepan-ni-command-hash (make-hash-table :test 'equal)
-  "Hash key is command name like 'finish' and the value is
-  the trepan-ni command to use, like 'out'")
+  "Hash key is command name like 'finish' and the value is the
+trepan-ni command to use, like 'out'.")
 
 (setf (gethash realgud:trepan-ni-debugger-name
 	       realgud-command-hash)
