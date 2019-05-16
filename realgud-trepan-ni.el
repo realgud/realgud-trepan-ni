@@ -1,4 +1,4 @@
-;;; realgud-trepan-ni.el --- realgud front-end to newer "node inspect"
+;;; realgud-trepan-ni.el --- adds realgud front-end debugger support for trepan-ni
 
 ;; Author: Rocky Bernstein
 ;; Version: 1.0.0
@@ -27,7 +27,7 @@
 ;;; Commentary:
 
 ;; realgud support for the "node inspect" with V8 inspector support.
-;; See https://nodejs.org/api/debugger.html
+;; See https://nodejs.org/api/debugger.html and https://www.npmjs.com/package/trepan-ni
 ;;
 ;;; Code:
 
