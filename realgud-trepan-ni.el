@@ -3,7 +3,7 @@
 ;; Author: Rocky Bernstein
 ;; Version: 1.0.0
 ;; Package-Type: multi
-;; Package-Requires: ((realgud "1.4.5") (cl-lib "0.5") (emacs "24"))
+;; Package-Requires: ((load-relative "1.2") (realgud "1.4.5") (cl-lib "0.5") (emacs "24"))
 ;; URL: http://github.com/realgud/realgud-node-inspect
 ;; Compatibility: GNU Emacs 24.x
 
