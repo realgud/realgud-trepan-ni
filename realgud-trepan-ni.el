@@ -1,4 +1,4 @@
-;;; realgud-trepan-ni.el --- adds realgud front-end debugger support for trepan-ni
+;;; realgud-trepan-ni.el --- realgud front-end to trepan-ni
 
 ;; Author: Rocky Bernstein
 ;; Version: 1.0.0
