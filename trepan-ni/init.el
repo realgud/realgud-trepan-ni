@@ -35,7 +35,7 @@ realgud-loc-pat struct")
 (setf (gethash "loc" realgud:trepan-ni-pat-hash)
       (make-realgud-loc-pat
        :regexp (format
-		"\\(?:%s\\)*\\(?:break\\|exception\\|frame change\\) in \\(?:file://\\)?%s:%s"
+		"\\(?:%s\\)*\\(?:break\\|exception\\|Break on start\\) in \\(?:file://\\)?%s:%s"
 		realgud:js-term-escape "\\([^:]+\\)"
 		realgud:regexp-captured-num)
        :file-group 1
@@ -85,31 +85,31 @@ realgud-loc-pat struct")
        :num 1))
 
 
-(defconst realgud:trepan-ni-frame-start-regexp  "\\(?:^\\|\n\\)\\(?:##\|->\)")
+(defconst realgud:trepan-ni-frame-start-regexp  "\\(?:^\\|\n\\)\\(?:##\\|->\\)")
 (defconst realgud:trepan-ni-frame-num-regexp    realgud:regexp-captured-num)
 (defconst realgud:trepan-ni-frame-module-regexp "[^ \t\n]+")
 (defconst realgud:trepan-ni-frame-file-regexp   "[^ \t\n]+")
 
-;; Regular expression that describes a trepan-ni location generally shown
 ;; Regular expression that describes a debugger "backtrace" command line.
 ;; For example:
 ;; #0 module.js:380:17
 ;; #1 dbgtest.js:3:9
 ;; #2 Module._compile module.js:456:26
-;; #3 Module._extensions..js module.js:474:10
-;; #4 Module.load module.js:356:32
-;; #5 Module._load module.js:312:12
-;; #6 Module.runMain module.js:497:10
-; ;#7 timers.js:110:15
+;;
+;; and with a newer node inspect:
+;;
+;; #0 file:///tmp/module.js:380:17
+;; #1 file:///tmp/dbgtest.js:3:9
+;; #2 Module._compile file:///tmpmodule.js:456:26
+
 (setf (gethash "debugger-backtrace" realgud:trepan-ni-pat-hash)
       (make-realgud-loc-pat
-       :regexp 	(concat realgud:trepan-ni-frame-start-regexp
-			realgud:trepan-ni-frame-num-regexp " "
-			"\\(?:" realgud:trepan-ni-frame-module-regexp " \\)?"
-			"\\(" realgud:trepan-ni-frame-file-regexp "\\)"
-			":"
+       :regexp 	(format "%s %s\\(?: %s\\)? \\(?:file://\\)?\\(%s\\):%s:%s"
+			realgud:trepan-ni-frame-start-regexp
+			realgud:trepan-ni-frame-num-regexp
+			realgud:trepan-ni-frame-module-regexp
+			realgud:trepan-ni-frame-file-regexp
 			realgud:regexp-captured-num
-			":"
 			realgud:regexp-captured-num
 			)
        :num 1
@@ -165,12 +165,14 @@ trepan-ni command to use, like 'out'.")
 (setf (gethash "backtrace"  realgud:trepan-ni-command-hash) "backtrace")
 (setf (gethash "break"      realgud:trepan-ni-command-hash)
       "setBreakpoint('%X',%l)")
+(setf (gethash "clear"      realgud:trepan-ni-command-hash)
+      "clearBreakpoint('%X', %l)")
 (setf (gethash "continue"   realgud:trepan-ni-command-hash) "cont")
 (setf (gethash "delete"     realgud:trepan-ni-command-hash)
       "deleteBreakpoint(%p)")
 
 (setf (gethash "kill"       realgud:trepan-ni-command-hash) "kill")
-(setf (gethash "quit"       realgud:trepan-ni-command-hash) "")
+(setf (gethash "quit"       realgud:trepan-ni-command-hash) ".exit")
 (setf (gethash "finish"     realgud:trepan-ni-command-hash) "out")
 (setf (gethash "shell"      realgud:trepan-ni-command-hash) "repl")
 (setf (gethash "eval"       realgud:trepan-ni-command-hash) "eval('%s')")
