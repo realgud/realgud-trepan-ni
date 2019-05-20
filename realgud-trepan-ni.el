@@ -26,14 +26,15 @@
 
 ;;; Commentary:
 
-;; realgud support for the "node inspect" with V8 inspector support.
+;; realgud support for the "node inspect" with V8 inspector support using a
+;; gdb-style "trepan" debugger.
 ;; See https://nodejs.org/api/debugger.html and https://www.npmjs.com/package/trepan-ni
 ;;
 ;;; Code:
 
 ;; Press C-x C-e at the end of the next line configure the program in
 ;; for building via "make" to get set up.
-;; (compile (format "EMACSLOADPATH=:%s:%s:%s:%s ./autogen.sh" (file-name-directory (locate-library "test-simple.elc")) (file-name-directory (locate-library "realgud.elc")) (file-name-directory (locate-library "load-relative.elc")) (file-name-directory (locate-library "loc-changes.elc"))))n
+;; (compile (format "EMACSLOADPATH=:%s:%s:%s:%s ./autogen.sh" (file-name-directory (locate-library "test-simple.elc")) (file-name-directory (locate-library "realgud.elc")) (file-name-directory (locate-library "load-relative.elc")) (file-name-directory (locate-library "loc-changes.elc"))))
 
 (require 'load-relative)
 
