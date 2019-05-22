@@ -1,4 +1,4 @@
-;;; realgud-trepan-ni.el --- Realgud front-end to trepan-ni
+;;; realgud-trepan-ni.el --- Realgud front-end to trepan-ni -*- lexical-binding: t -*-
 
 ;; Author: Rocky Bernstein
 ;; Version: 1.0.0
