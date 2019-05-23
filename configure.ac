@@ -1,6 +1,6 @@
 dnl FIXME: pick up from realgud.el
-AC_INIT(realgud-inspect, 1.0,)
-AC_CONFIG_SRCDIR(trepan-ni/main.el)
+AC_INIT(realgud-inspect, 1.0.0,)
+AC_CONFIG_SRCDIR(trepan-ni/trepan-ni.el)
 AM_INIT_AUTOMAKE([foreign])
 AM_MAINTAINER_MODE
 
@@ -10,9 +10,9 @@ AC_ARG_WITH(emacs, AC_HELP_STRING([--with-emacs],
 
 AC_MSG_NOTICE("Checking emacs version")
 $EMACS -batch -q --no-site-file -eval \
-  '(if (<= emacs-major-version 23)
+  '(if (<= emacs-major-version 24)
        (progn
-         (error "You need GNU Emacs 24 or better.")
+         (error "You need GNU Emacs 25 or better.")
          (kill-emacs 1)
        )
    )'

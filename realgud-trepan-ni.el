@@ -3,9 +3,9 @@
 ;; Author: Rocky Bernstein
 ;; Version: 1.0.0
 ;; Package-Type: multi
-;; Package-Requires: ((load-relative "1.2") (realgud "1.4.5") (cl-lib "0.5") (emacs "24"))
+;; Package-Requires: ((load-relative "1.2") (realgud "1.4.5") (cl-lib "0.5") (emacs "25"))
 ;; URL: http://github.com/realgud/realgud-node-inspect
-;; Compatibility: GNU Emacs 24.x
+;; Compatibility: GNU Emacs 25.x
 
 ;; Copyright (C) 2015, 2016, 2019 Free Software Foundation, Inc
 
@@ -41,10 +41,10 @@
 (defgroup realgud-trepan-ni  nil
   "Realgud interface to the 'trepan-ni' debugger"
   :group 'realgud
-  :version "24.3")
+  :version "25.1")
 
-(require-relative-list '( "./trepan-ni/main" ) "realgud-")
-(load-relative "./trepan-ni/main.el")
+(require-relative-list '( "./trepan-ni/trepan-ni" ) "realgud-")
+(load-relative "./trepan-ni/trepan-ni.el")
 (load-relative "./trepan-ni/track-mode.el")
 
 (provide-me)
