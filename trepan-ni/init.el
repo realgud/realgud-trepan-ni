@@ -1,4 +1,5 @@
 ;; Copyright (C) 2019 Free Software Foundation, Inc
+;; Author: Rocky Bernstein
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -17,6 +18,7 @@
 
 (eval-when-compile (require 'cl-lib))   ;For setf.
 
+(require 'load-relative)
 (require 'realgud)
 (require 'realgud-lang-js)
 (require 'ansi-color)
@@ -171,12 +173,12 @@ trepan-ni command to use, like 'out'.")
 (setf (gethash "continue"   realgud:trepan-ni-command-hash) "cont")
 (setf (gethash "delete"     realgud:trepan-ni-command-hash)
       "deleteBreakpoint(%p)")
-
+(setf (gethash "eval"       realgud:trepan-ni-command-hash) "eval('%s')")
+(setf (gethash "finish"     realgud:trepan-ni-command-hash) "out")
+(setf (gethash "info-breakpoints" realgud:trepan-ni-command-hash) "breakpoints")
 (setf (gethash "kill"       realgud:trepan-ni-command-hash) "kill")
 (setf (gethash "quit"       realgud:trepan-ni-command-hash) ".exit")
-(setf (gethash "finish"     realgud:trepan-ni-command-hash) "out")
 (setf (gethash "shell"      realgud:trepan-ni-command-hash) "repl")
-(setf (gethash "eval"       realgud:trepan-ni-command-hash) "eval('%s')")
 
 ;; We need aliases for step and next because the default would
 ;; do step 1 and trepan-ni doesn't handle this. And if it did,
