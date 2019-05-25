@@ -1,5 +1,6 @@
 *.elc
 *~
+/realgud-trepan-ni-autoloads.el
 /*-pkg.el
 /*.tar.gz
 /README
