@@ -21,7 +21,7 @@
 (require 'realgud-lang-js)
 (require 'ansi-color)
 
-(declare-function make-realgud-loc-pat 'realgud/common/regexp.el)
+(declare-function make-realgud-loc-pat 'realgud-regexp)
 
 (defvar realgud:trepan-ni-pat-hash (make-hash-table :test 'equal)
   "Hash key is the what kind of pattern we want to match:
