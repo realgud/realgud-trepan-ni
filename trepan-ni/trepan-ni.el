@@ -21,7 +21,7 @@
 (require-relative-list '("core" "track-mode") "realgud:trepan-ni-")
 
 ;; This is needed, or at least the docstring part of it is needed to
-;; get the customization menu to work in Emacs 24.
+;; get the customization menu to work in Emacs 25.
 (defgroup realgud:trepan-ni nil
   "The realgud interface to the trepan-ni debugger"
   :group 'realgud

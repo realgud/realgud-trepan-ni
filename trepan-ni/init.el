@@ -16,15 +16,12 @@
 
 ;;; "trepan-ni" debugger
 
-(eval-when-compile (require 'cl-lib))   ;For setf.
-
 (require 'load-relative)
 (require 'realgud)
 (require 'realgud-lang-js)
 (require 'ansi-color)
 
-(defvar realgud:trepan-ni-pat-hash)
-(declare-function make-realgud-loc-pat (realgud-loc))
+(declare-function make-realgud-loc-pat 'realgud-regexp)
 
 (defvar realgud:trepan-ni-pat-hash (make-hash-table :test 'equal)
   "Hash key is the what kind of pattern we want to match:
