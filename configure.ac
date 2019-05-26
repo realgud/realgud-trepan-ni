@@ -10,7 +10,7 @@ AC_ARG_WITH(emacs, AC_HELP_STRING([--with-emacs],
 
 AC_MSG_NOTICE("Checking emacs version")
 $EMACS -batch -q --no-site-file -eval \
-  '(if (<= emacs-major-version 24)
+  '(if (< emacs-major-version 25)
        (progn
          (error "You need GNU Emacs 25 or better.")
          (kill-emacs 1)

@@ -4,7 +4,7 @@
 ;; Version: 1.0.0
 ;; Package-Type: multi
 ;; Package-Requires: ((load-relative "1.2") (realgud "1.4.8") (cl-lib "0.5") (emacs "25"))
-;; URL: http://github.com/realgud/realgud-node-inspect
+;; URL: http://github.com/realgud/realgud-trepan-ni
 ;; Compatibility: GNU Emacs 25.x
 
 ;; Copyright (C) 2015, 2016, 2019 Free Software Foundation, Inc
