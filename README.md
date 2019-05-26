@@ -7,4 +7,4 @@ debugger support to emacs
 This code is available as an [ELPA](https://elpa.gnu.org/packages/realgud-trepan-ni.html)
 or [MELPA](https://melpa.org/#/realgud-trepan-ni) package.
 
-It is similar to [ELPA node inspect](https://elpa.gnu.org/packages/realgud-node-inspect.html) but the realgud interaction here is far superior.
+It is similar to [ELPA node inspect](https://elpa.gnu.org/packages/realgud-node-inspect.html), but the realgud interaction here is far superior.
