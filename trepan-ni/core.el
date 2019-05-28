@@ -58,7 +58,7 @@ run.
 
 We return the a list containing
 
-* the name of the debugger given (e.g. trepan-ni) and its arguments:
+* the name of the debugger given (e.g. \"trepan-ni|') and its arguments:
   a list of strings
 * the script name and its arguments - list of strings
 

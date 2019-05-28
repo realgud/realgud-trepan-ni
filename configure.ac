@@ -1,5 +1,5 @@
 dnl FIXME: pick up from realgud.el
-AC_INIT(realgud-inspect, 1.0.0,)
+AC_INIT(realgud-inspect, 1.0.1,)
 AC_CONFIG_SRCDIR(trepan-ni/trepan-ni.el)
 AM_INIT_AUTOMAKE([foreign])
 AM_MAINTAINER_MODE
