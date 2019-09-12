@@ -10,4 +10,5 @@
 ;; We'll work around it here
 (if (not (functionp 'make-mutex))
     (defun make-mutex(&optional name)))
+(require 'realgud)
 (require 'realgud-lang-js)
