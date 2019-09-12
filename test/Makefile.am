@@ -38,12 +38,15 @@ help:
 test: check
 
 #: same thing as "check-elget"
-test-elget: check-elget
+test-cask: check-cask
 
 test_files := $(wildcard test-*.el)
 
 CHECK_FILES = $(notdir $(test_files:.el=.run))
-EL_GET_CHECK_FILES = $(notdir $(test_files:.el=.elrun))
+
+cask_test_files := test-trepan-ni.inspect.el
+
+EL_GET_CHECK_FILES = $(notdir $(cask_test_files:.el=.elrun))
 
 #: Run all tests
 check: $(CHECK_FILES)
@@ -56,8 +59,8 @@ check-short:
 	$(MAKE) check 2>&1  | ruby ../make-check-filter.rb
 
 #: Run all tests with minimum verbosity via el-get
-check-short-elget:
-	$(MAKE) check-elget 2>&1  | ruby ../make-check-filter.rb
+check-short-cask:
+	$(MAKE) check-cask 2>&1  | ruby ../make-check-filter.rb
 
 test-%.run:
 	(cd $(top_srcdir)/test && EMACSLOADPATH=$(EMACSLOADPATH) $(EMACS) --batch --no-site-file --no-splash --load $(@:.run=.el))
