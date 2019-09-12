@@ -4,7 +4,6 @@
 (require 'test-simple)
 (require 'load-relative)
 (require 'realgud)
-(require 'realgud-lang-js)
 
 (load-file "./regexp-helper.el")
 (load-file "../trepan-ni/init.el")
