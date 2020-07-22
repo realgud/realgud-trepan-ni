@@ -4,10 +4,10 @@
 ;; Version: 1.0.1
 ;; Package-Type: multi
 ;; Package-Requires: ((load-relative "1.2") (realgud "1.5.0") (emacs "25"))
-;; URL: http://github.com/realgud/realgud-trepan-ni
+;; URL: https://github.com/realgud/realgud-trepan-ni
 ;; Compatibility: GNU Emacs 25.x
 
-;; Copyright (C) 2015, 2016, 2019 Free Software Foundation, Inc
+;; Copyright (C) 2015, 2016, 2019, 2020 Free Software Foundation, Inc
 
 ;; Author: Rocky Bernstein <rocky@gnu.org>
 
